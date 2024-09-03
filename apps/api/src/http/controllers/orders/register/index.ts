@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { prisma } from "lib/prisma";
 import z from "zod";
+import { database } from "@scale/database";
 
 const schema = z.object({
 	product: z.string().min(1),
@@ -15,7 +15,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 	try {
 		const fields = schema.parse(request.body);
 
-		const order = await prisma.order.create({
+		const order = await database.order.create({
 			data: {
 				...fields,
 				status: "PENDING",
