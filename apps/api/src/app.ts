@@ -5,11 +5,11 @@ import { ZodError } from "zod";
 
 export const app = fastify({});
 
-app.register(fastifyMongo, {
-	forceClose: true,
-	url: "mongodb://root:example@localhost:27017", // Todo: change to .env
-	database: "library",
-});
+// app.register(fastifyMongo, {
+// 	forceClose: true,
+// 	url: "mongodb://root:example@localhost:27017", // Todo: change to .env
+// 	database: "library",
+// });
 
 app.register(ordersRoutes);
 

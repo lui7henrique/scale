@@ -1,4 +1,5 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { prisma } from "lib/prisma";
 import z from "zod";
 
 const schema = z.object({
@@ -14,8 +15,15 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 	try {
 		const fields = schema.parse(request.body);
 
-		console.log({ fields });
-		reply.send({ fields });
+		const order = await prisma.order.create({
+			data: {
+				...fields,
+				status: "PENDING",
+				payment_method: "CREDIT_CARD",
+			},
+		});
+
+		reply.code(201).send(order);
 	} catch (error) {
 		throw error;
 	}

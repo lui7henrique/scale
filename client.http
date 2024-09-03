@@ -9,5 +9,4 @@ Content-Type: application/json
   "quantity": 1,
   "address": "Rua dos Sonhos",
   "payment_method": "CREDIT_CARD"
-
 }
