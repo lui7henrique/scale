@@ -1,0 +1,18 @@
+{
+  "extends": "@scale/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "jsx": "react",
+    "outDir": "dist",
+  },
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "dist",
+    "build"
+  ],
+  "ts-node": {
+    "swc": true,
+  }
+}
