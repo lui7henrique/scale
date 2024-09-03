@@ -1,15 +1,21 @@
 {
-  "name": "api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@scale/tsconfig": "workspace:*"
-  }
+	"name": "api",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"dev": "tsx watch src/server.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"@fastify/mongodb": "^8.0.0",
+		"@scale/tsconfig": "workspace:*",
+		"fastify": "^4.28.1",
+		"mongoose": "^8.6.1"
+	},
+	"devDependencies": {
+		"tsx": "^4.19.0"
+	}
 }
