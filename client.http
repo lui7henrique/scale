@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:3333
+
+# @name create_order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "product": "Iphone 15",
+  "quantity": 1,
+  "address": "Rua dos Sonhos",
+  "payment_method": "CREDIT_CARD"
+
+}

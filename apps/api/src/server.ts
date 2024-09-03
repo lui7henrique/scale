@@ -1,23 +1,10 @@
-import { fastify } from "fastify";
-import mongo from "@fastify/mongodb";
+import { app } from "./app";
 
-const app = fastify({
-	logger: true,
-});
-
-app.register(mongo, {
-	forceClose: true,
-	url: "mongodb://root:example@localhost:27017",
-	database: "library",
-});
-
-app.get("/", async (req, reply) => {
-	reply.send({ hello: "world" });
-});
-
-app.listen({ port: 3000 }, (err) => {
-	if (err) {
-		app.log.error(err);
-		process.exit(1);
-	}
-});
+app
+	.listen({
+		host: "0.0.0.0",
+		port: 3333,
+	})
+	.then(() => {
+		console.log("🚀 Running at port 3333");
+	});
