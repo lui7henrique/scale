@@ -11,12 +11,12 @@ enum PaymentMethod {
   CREDIT_CARD
   DEBIT_CARD
   PAYPAL
-  PIX
 }
 
 enum OrderStatus {
-  PENDING
-  PROCESSING
+  PAYMENT_PENDING
+  PAYMENT_FAILED
+  CONFIRMED
   SHIPPED
   DELIVERED
   COMPLETED
@@ -32,7 +32,7 @@ model Order {
   quantity       Int
   address        String
   payment_method PaymentMethod
-  status         OrderStatus   @default(PENDING)
+  status         OrderStatus   @default(PAYMENT_PENDING)
   created_at     DateTime      @default(now())
 
   product   Product @relation(fields: [productId], references: [id])

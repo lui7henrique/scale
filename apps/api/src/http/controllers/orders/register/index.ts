@@ -44,11 +44,13 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 				id: product_id,
 			},
 			data: {
-				quantity: product.quantity - data.quantity,
+				quantity: {
+					decrement: data.quantity,
+				},
 			},
 		});
 
-		await publishToQueue("orders_queue", order);
+		await publishToQueue("order_fulfillment_queue", order);
 		reply.code(201).send(order);
 	} catch (error) {
 		console.error(error);

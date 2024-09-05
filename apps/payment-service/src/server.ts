@@ -1,6 +1,6 @@
 import { connectRabbitMQ } from "@scale/messaging";
 import { app } from "./app";
-import { startOrderProcessing } from "./services/order-processor";
+import { startPaymentService } from "./services/payment";
 
 app
 	.listen({
@@ -12,7 +12,7 @@ app
 			await connectRabbitMQ();
 			console.log("🚀 Running at port 3333 and connected to RabbitMQ.");
 
-			await startOrderProcessing();
+			await startPaymentService();
 			console.log("🚀 Start order processing.");
 		} catch (error) {
 			console.error("Failed to start the server: ", error);
