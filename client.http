@@ -5,7 +5,7 @@ POST {{baseUrl}}/orders
 Content-Type: application/json
 
 {
-  "product_id": "66d9d2f38c9cd8839bc649f7",
+  "product_id": "66d9e6ae25177fd83ef5802e",
   "quantity": 1,
   "address": "Rua dos Sonhos",
   "payment_method": "CREDIT_CARD"

@@ -5,12 +5,11 @@ export async function startPaymentService() {
 	await consumeQueue("payment_queue", async (msg) => {
 		if (msg) {
 			const order: Order = JSON.parse(msg.content.toString());
+			console.log("💬 Processing order:", order);
 
 			try {
-				await new Promise((resolve) => setTimeout((resolve) => {}, 1000));
-
 				if (order.payment_method === "PAYPAL") {
-					await database.order.update({
+					const failedOrder = await database.order.update({
 						where: {
 							id: order.id,
 						},
@@ -30,7 +29,7 @@ export async function startPaymentService() {
 						},
 					});
 
-					return;
+					return console.log("Processed order:", failedOrder);
 				}
 
 				const confirmedOrder = await database.order.update({
@@ -42,7 +41,9 @@ export async function startPaymentService() {
 					},
 				});
 
-				await publishToQueue("payment_queue", order);
+				console.log("Processed order:", confirmedOrder);
+
+				await publishToQueue("order_fulfillment_queue", confirmedOrder);
 			} catch (error) {
 				console.error("Error processing order:", error);
 			}

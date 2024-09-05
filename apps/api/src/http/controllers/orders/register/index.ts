@@ -7,7 +7,7 @@ const schema = z.object({
 	product_id: z.string().min(1),
 	quantity: z.number().min(1),
 	address: z.string().min(1),
-	payment_method: z.enum(["CREDIT_CARD"]),
+	payment_method: z.enum(["CREDIT_CARD", "DEBIT_CARD", "PAYPAL"]),
 });
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
@@ -30,15 +30,6 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 				.send({ message: "Insufficient stock for the requested quantity" });
 		}
 
-		const order = await database.order.create({
-			data: {
-				...data,
-				product: {
-					connect: { id: product_id },
-				},
-			},
-		});
-
 		await database.product.update({
 			where: {
 				id: product_id,
@@ -46,6 +37,15 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 			data: {
 				quantity: {
 					decrement: data.quantity,
+				},
+			},
+		});
+
+		const order = await database.order.create({
+			data: {
+				...data,
+				product: {
+					connect: { id: product_id },
 				},
 			},
 		});
