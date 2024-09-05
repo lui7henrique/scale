@@ -1,4 +1,3 @@
-Here's a simple **ToDo List** for the features of each microservice:
 
 ### **1. API Service (`api`)**
 - [x] Create endpoint to receive orders (`POST /orders`).
@@ -39,6 +38,5 @@ Here's a simple **ToDo List** for the features of each microservice:
 - [ ] Log and manage errors (e.g., inventory issues, payment failures).
 - [ ] Attempt retries or escalate the issue if necessary.
 
-This structure provides a clear roadmap for each microservice and the responsibilities they hold in the system.
 
 - [ ] Handle with .envs
