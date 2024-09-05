@@ -50,7 +50,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 			},
 		});
 
-		await publishToQueue("order_fulfillment_queue", order);
+		await publishToQueue("payment_queue", order);
 		reply.code(201).send(order);
 	} catch (error) {
 		console.error(error);
