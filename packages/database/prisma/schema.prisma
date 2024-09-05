@@ -11,11 +11,11 @@ enum PaymentMethod {
   CREDIT_CARD
   DEBIT_CARD
   PAYPAL
+  PIX
 }
 
 enum OrderStatus {
   PENDING
-  CONFIRMED
   PROCESSING
   SHIPPED
   DELIVERED
@@ -29,12 +29,26 @@ enum OrderStatus {
 
 model Order {
   id             String        @id @default(auto()) @map("_id") @db.ObjectId
-  product        String
   quantity       Int
   address        String
   payment_method PaymentMethod
   status         OrderStatus   @default(PENDING)
   created_at     DateTime      @default(now())
 
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @db.ObjectId
+
   @@map("orders")
+}
+
+model Product {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  price      Float
+  quantity   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  Order      Order[]
+
+  @@map("products")
 }

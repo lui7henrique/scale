@@ -1,11 +1,16 @@
 {
 	"name": "@scale/database",
 	"version": "0.0.0",
+	"prisma": {
+		"seed": "ts-node prisma/seed.ts"
+	},
 	"dependencies": {
+		"@faker-js/faker": "^9.0.0",
 		"@prisma/client": "latest"
 	},
 	"devDependencies": {
-		"prisma": "latest"
+		"prisma": "latest",
+		"ts-node": "^10.9.2"
 	},
 	"scripts": {
 		"db:generate": "prisma generate",
