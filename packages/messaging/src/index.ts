@@ -26,6 +26,20 @@ export function getChannel() {
 	return channel;
 }
 
+export async function consumeQueue(
+	queue: string,
+	onMessage: (msg: amqp.ConsumeMessage | null) => void,
+) {
+	try {
+		const channel = getChannel();
+		await channel.assertQueue(queue, { durable: true });
+		channel.consume(queue, onMessage, { noAck: true });
+	} catch (error) {
+		console.error("Failed to consume queue", error);
+		throw error;
+	}
+}
+
 export async function publishToQueue(
 	queue: string,
 	message: unknown,
