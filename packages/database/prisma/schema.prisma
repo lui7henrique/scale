@@ -15,8 +15,16 @@ enum PaymentMethod {
 
 enum OrderStatus {
   PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
   COMPLETED
-  CANCELLED
+
+  // RETURNED 
+  // REFUNDED 
+  // CANCELLED 
+  // FAILED 
 }
 
 model Order {

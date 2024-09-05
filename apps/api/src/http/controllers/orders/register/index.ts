@@ -22,12 +22,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 			},
 		});
 
-		await publishToQueue("orders_queue", {
-			orderId: order.id,
-			product: order.product,
-			quantity: order.quantity,
-			status: order.status,
-		});
+		await publishToQueue("orders_queue", order);
 
 		reply.code(201).send(order);
 	} catch (error) {
