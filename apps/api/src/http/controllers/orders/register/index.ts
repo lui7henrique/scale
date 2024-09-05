@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { database, type Order } from "@scale/database";
-import { getChannel } from "src/lib/rabbit-mq";
+import { database } from "@scale/database";
+import { publishToQueue } from "@scale/messaging";
 
 const schema = z.object({
 	product: z.string().min(1),
@@ -9,29 +9,6 @@ const schema = z.object({
 	address: z.string().min(1),
 	payment_method: z.enum(["CREDIT_CARD"]),
 });
-
-export async function publishToQueue(
-	queue: string,
-	order: Order,
-): Promise<void> {
-	const message = {
-		orderId: order.id,
-		product: order.product,
-		quantity: order.quantity,
-		status: order.status,
-	};
-
-	try {
-		const channel = getChannel();
-		const messageBuffer = Buffer.from(JSON.stringify(message));
-
-		await channel.assertQueue(queue, { durable: true });
-		channel.sendToQueue(queue, messageBuffer, { persistent: true });
-	} catch (error) {
-		console.error("Failed to publish message to queue", error);
-		throw error;
-	}
-}
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
 	try {
@@ -45,7 +22,12 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 			},
 		});
 
-		await publishToQueue("orders_queue", order);
+		await publishToQueue("orders_queue", {
+			orderId: order.id,
+			product: order.product,
+			quantity: order.quantity,
+			status: order.status,
+		});
 
 		reply.code(201).send(order);
 	} catch (error) {

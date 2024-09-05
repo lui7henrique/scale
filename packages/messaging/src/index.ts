@@ -25,3 +25,19 @@ export function getChannel() {
 
 	return channel;
 }
+
+export async function publishToQueue(
+	queue: string,
+	message: unknown,
+): Promise<void> {
+	try {
+		const channel = getChannel();
+		const messageBuffer = Buffer.from(JSON.stringify(message));
+
+		await channel.assertQueue(queue, { durable: true });
+		channel.sendToQueue(queue, messageBuffer, { persistent: true });
+	} catch (error) {
+		console.error("Failed to publish message to queue", error);
+		throw error;
+	}
+}

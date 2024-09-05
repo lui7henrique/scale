@@ -19,3 +19,10 @@ Aqui está uma versão mais enxuta do fluxo de um pedido em um sistema que utili
    - Erros no processamento são registrados em uma `error_queue` para monitoramento e solução.
 
 Este fluxo simplificado mantém a escalabilidade e resiliência, mas é focado nas funcionalidades essenciais, reduzindo a complexidade para um projeto menor e mais direto.
+
+
+# Todo
+- [ ] Endpoint to receive orders 
+- [ ] Publish order messages in queue
+- [ ] Process order messages in queue by another service 
+- [ ] Handle with .envs

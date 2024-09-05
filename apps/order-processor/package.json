@@ -1,5 +1,5 @@
 {
-	"name": "api",
+	"name": "order-processor",
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
