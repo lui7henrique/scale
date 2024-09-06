@@ -1,4 +1,3 @@
-
 ### **1. API Service (`api`)**
 - [x] Create endpoint to receive orders (`POST /orders`).
 - [x] Validate order data.
